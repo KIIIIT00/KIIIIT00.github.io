@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学術ポートフォリオ | 研究と就職活動のために</title>
+    <style>
+        /* 全体のスタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --accent-color: #fbbc04;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --text-color: #3c4043;
+            --light-gray: #dadce0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* ヘッダー */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h3 {
+            margin-bottom: 0;
+            font-size: 1.4rem;
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        /* ナビゲーション */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(to right, #ebf3fe, #f8f9fa);
+            padding: 160px 0 80px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            color: #5f6368;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f3f7ff;
+            color: var(--primary-color);
+        }
+        
+        /* セクション共通 */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+        }
+        
+        /* プロフィールセクション */
+        .profile {
+            background-color: white;
+        }
+        
+        .profile-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .profile-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .profile-image img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--light-gray);
+        }
+        
+        .profile-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .profile-info {
+            margin-top: 20px;
+        }
+        
+        .profile-info-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info-label {
+            font-weight: 600;
+            min-width: 120px;
+        }
+        
+        /* 学歴・経歴セクション */
+        .education-experience {
+            background-color: #f3f7ff;
+        }
+        
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 3px;
+            height: 100%;
+            background-color: var(--light-gray);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-content {
+            width: calc(50% - 40px);
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -10px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        /* 研究プロジェクトセクション */
+        .research {
+            background-color: white;
+        }
+        
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .research-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .research-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .research-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .research-card:hover .research-image img {
+            transform: scale(1.05);
+        }
+        
+        .research-content {
+            padding: 20px;
+        }
+        
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            padding: 5px 10px;
+            background-color: #e8f0fe;
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        /* スキルセクション */
+        .skills {
+            background-color: #f3f7ff;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .skills-category {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        /* 論文・発表セクション */
+        .publications {
+            background-color: white;
+        }
+        
+        .publication-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .publication-item {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+        
+        .publication-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .publication-authors {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #5f6368;
+        }
+        
+        .publication-journal {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .publication-abstract {
+            margin-bottom: 15px;
+        }
+        
+        .publication-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .publication-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            gap: 5px;
+        }
+        
+        /* 連絡先セクション */
+        .contact {
+            background-color: #f3f7ff;
+        }
+        
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--primary-color);
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* フッター */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-nav a {
+            color: white;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero {
+                padding: 140px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content::before,
+            .timeline-item:nth-child(odd) .timeline-content::before {
+                left: -10px;
+                right: auto;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h3>あなたの<span>ポートフォリオ</span></h3>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#profile">プロフィール</a></li>
+                        <li><a href="#education">学歴・経歴</a></li>
+                        <li><a href="#research">研究プロジェクト</a></li>
+                        <li><a href="#skills">スキル</a></li>
+                        <li><a href="#publications">論文・発表</a></li>
+                        <li><a href="#contact">連絡先</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <h1>あなたの名前</h1>
+            <p>○○大学 ○○学部 ○○専攻 | 人工知能・機械学習研究者</p>
+            <div class="hero-buttons">
+                <a href="#research" class="btn">研究プロジェクトを見る</a>
+                <a href="#contact" class="btn btn-secondary">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- プロフィール -->
+    <section id="profile" class="profile">
+        <div class="container">
+            <div class="section-title">
+                <h2>プロフィール</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src="/api/placeholder/300/300" alt="プロフィール写真">
+                </div>
+                <div class="profile-text">
+                    <p>こんにちは！○○大学の○○学部で人工知能と機械学習の研究を行っている○○です。私の研究テーマは、○○における○○の応用で、特に○○に焦点を当てています。</p>
+                    
+                    <p>私は、○○年から○○教授の研究室に所属し、○○プロジェクトに参加しています。これまでに○○の分野で○本の論文を発表し、○○学会で研究成果を発表しました。</p>
+                    
+                    <p>大学での研究に加えて、○○社でのインターンシップ経験があり、実際の産業における○○技術の応用にも興味を持っています。将来は、○○分野で○○を実現することを目指しています。</p>
+                    
+                    <div class="profile-info">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">学部/学科:</div>
+                            <div>○○学部 ○○学科</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">専攻:</div>
+                            <div>○○専攻</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">研究室:</div>
+                            <div>○○研究室</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">研究分野:</div>
+                            <div>人工知能、機械学習、○○</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 学歴・経歴 -->
+    <section id="education" class="education-experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>学歴・経歴</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021年4月 - 現在</div>
+                        <h3>○○大学 大学院</h3>
+                        <p>○○研究科 ○○専攻</p>
+                        <p>○○教授の指導のもと、○○の研究に取り組んでいます。○○学会での発表や、○○ジャーナルへの論文投稿を行っています。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023年6月 - 2023年8月</div>
+                        <h3>○○株式会社 インターンシップ</h3>
+                        <p>研究開発部門</p>
+                        <p>○○プロジェクトに参加し、○○の開発に貢献しました。実際の産業データを使用した○○のモデル構築を経験しました。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2017年4月 - 2021年3月</div>
+                        <h3>○○大学 学部</h3>
+                        <p>○○学部 ○○学科</p>
+                        <p>GPA: 3.8/4.0</p>
+                        <p>卒業研究では「○○における○○の応用」というテーマで研究を行い、○○賞を受賞しました。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022年9月 - 2023年2月</div>
+                        <h3>○○大学 交換留学</h3>
+                        <p>○○学部</p>
+                        <p>○○プログラムに参加し、○○の研究室で○○についての研究を行いました。国際的な研究環境での経験を積みました。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 研究プロジェクト -->
+    <section id="research" class="research">
+        <div class="container">
+            <div class="section-title">
+                <h2>研究プロジェクト</h2>
+            </div>
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="research-image">
+                        <img src="/api/placeholder/500/300" alt="研究プロジェクト画像">
+                    </div>
+                    <div class="research-content">
+                        <h3>○○におけるディープラーニングの応用</h3>
+                        <p>○○データを用いた○○の予測モデルの開発。従来の手法と比較して○○%の精度向上を実現しました。</p>
+                        <div class="research-tags">
+                            <span class="tag">ディープラーニング</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <div class="research-image">
+                        <img src="/api/placeholder/500/300" alt="研究プロジェクト画像">
+                    </div>
+                    <div class="research-content">
+                        <h3>○○を用いた○○システムの開発</h3>
+                        <p>○○技術を活用した新しい○○システムの提案と実装。○○における問題を解決し、○○の効率を○○%向上させました。</p>
+                        <div class="research-tags">
+                            <span class="tag">機械学習</span>
+                            <span class="tag">システム開発</span>
+                            <span class="tag">Java</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <div class="research-image">
+                        <img src="/api/placeholder/500/300" alt="研究プロジェクト画像">
+                    </div>
+                    <div class="research-content">
+                        <h3>○○データの分析と可視化</h3>
+                        <p>○○から収集した大規模データの分析と効果的な可視化手法の提案。○○の新たな知見を発見しました。</p>
+                        <div class="research-tags">
+                            <span class="tag">データ分析</span>
+                            <span class="tag">R</span>
+                            <span class="tag">データ可視化</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- スキル -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>スキル</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3>プログラミング言語</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>R</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Java</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>C++</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>フレームワーク・ツール</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>TensorFlow/PyTorch</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Scikit-learn</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>SQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Git</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>研究スキル</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span
