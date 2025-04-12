@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思い出振り返りアプリ</title>
+    <style>
+        /* 全体のスタイル */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* レイアウト */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        /* ヘッダー */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo a {
+            color: white;
+        }
+        
+        /* ナビゲーション */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* プロジェクト詳細 */
+        .project-detail {
+            padding-top: 100px;
+        }
+        
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-meta {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .tag {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            padding: 5px 15px;
+            border-radius: 30px;
+        }
+        
+        .project-image {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .project-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-description {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .project-section {
+            margin-bottom: 40px;
+        }
+        
+        .project-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .project-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #ddd;
+            transform: translateY(-3px);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .back-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        
+        /* フッター */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">河原 壱樹</a>
+                </div>
+                <div class="menu-toggle">&#9776;</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html#profile">プロフィール</a></li>
+                        <li><a href="index.html#skills">スキル</a></li>
+                        <li><a href="index.html#projects">成果物</a></li>
+                        <li><a href="index.html#research">研究内容</a></li>
+                        <li><a href="index.html#publications">学会発表</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- プロジェクト詳細セクション -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header">
+                <h1 class="project-title">思い出振り返りアプリ</h1>
+                <div class="project-meta">
+                    <p>開発期間: 2023年4月 - 2023年7月</p>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Android Studio</span>
+                    <span class="tag">Firbase</span>
+                    <span class="tag">Google Cloud</span>
+                </div>
+            </div>
+            
+            <div class="project-image">
+                <img src="images/project/photo_memory/photo_memory_cover.png" alt="○○アプリのメイン画像">
+            </div>
+            
+            <div class="project-description">
+                <div class="project-section">
+                    <h2>概要</h2>
+                    <p>新型コロナウイルスによる制限が緩和された後，旅行者数が回復した現状がある．今回，旅行者の行動に着目し，旅行者が必ず行うであろう観光地の写真撮影に関するアプリを制作した．</p>
+                    <p>容易に，写真と場所，日付の情報をすぐに振り返ることができ，写真の場所を地図上に示すことで，視覚的に訪れた場所がわかる．</p>
+                </div>
+                
+                <div class="project-section">
+                    <h2>使用技術</h2>
+                    <ul>
+                        <li><strong>バックエンド:</strong> Java</li>
+                        <li><strong>API:</strong> Firbase，Google Cloud</li>
+                        <li><strong>開発環境:</strong> Android Studio</li>
+                    </ul>
+                </div>
+                
+                <div class="project-section">
+                    <h2>主な機能</h2>
+                    <ol>
+                        <li><strong>写真登録機能:</strong> ユーザは，撮影した写真登録することができる．</li>
+                        <li><strong>写真の撮影日付の登録，閲覧:</strong> ユーザは，撮影した写真の日付を登録したり，閲覧したりできる．</li>
+                        <li><strong>現在地と登録した写真の位置の登録閲覧:</strong> 現在地と，登録した写真の位置の閲覧をすることができる．</li>
+                    </ol>
+                </div>
+                
+                <div class="project-section">
+                    <h2>学んだこと・工夫した点</h2>
+                    <p>Android Studioで，Google Cloud Vision APIの中にあるランドマーク検出用のAPIを正確にたたくときに大変だった．</p>
+                    <p>必要な情報だけを抜き出して，Android Studioのアプリ内で表示したり，観光名所の写真や観光名所を音連れた日付などの情報をもつ連結リスト内のセルに抜き出したデータを格納したりする点を努力した．</p>
+                    <p>Java言語を用いて，APIを使用したAndroidアプリの開発を自分で調べ学習し，自分の想定通りに実装できる能力を得ることが出来た．また，実装する際に，詰まったところを自分で調べ，解決するという自己解決能力をより得ることが出来たと考える．</p>
+                </div>
+            </div>
+            
+            <div class="project-gallery">
+                <div class="gallery-item">
+                    <img src="images/project/photo_memory/register.png" alt="アプリの画面1">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/project/photo_memory/register_skytree.png" alt="アプリの画面2">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/project/photo_memory/location_skytree.png" alt="アプリの画面3">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/project/photo_memory/register_locations.png" alt="アプリの画面4">
+                </div>
+            </div>
+            
+            <div class="project-links">
+                <a href="https://github.com/KIIIIT00/PhotoMemoryAlbumApp" class="btn btn-secondary">GitHubリポジトリ</a>
+            </div>
+            
+            <div class="back-link">
+                <a href="index.html#projects">← 成果物一覧に戻る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>あなたの名前</h3>
+                    <p>立命館大学大学院 情報理工学研究学科<br>李研究室所属</p>
+                    <p>研究テーマ：Visual Localizationに関する研究</p>
+                </div>
+                <div class="footer-column">
+                    <h3>リンク</h3>
+                    <ul class="footer-links">
+                        <li><a href="#profile">プロフィール</a></li>
+                        <li><a href="#skills">スキル</a></li>
+                        <li><a href="#projects">成果物</a></li>
+                        <li><a href="#research">研究内容</a></li>
+                        <li><a href="#publications">学会発表</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>連絡先</h3>
+                    <ul class="footer-links">
+                        <li>メール: kawahara.aislab@gmail.com</li>
+                        <li>GitHub: github.com/KIIIIT00</li>
+                        <li>Qiita: qiita.com/KenjiEndou</li>
+                        <li>Zen: zen.dev/kenjiendou</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 河原壱樹. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScriptの追加 -->
+    <script>
+        // メニュートグル
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav ul');
+        
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
